@@ -20,4 +20,4 @@ spec:
     spec:
       containers:
       - name: node-container-rep
-        image: divyanshpaliwal/node-app
+        image: divyanshpaliwal/node-app-demo
