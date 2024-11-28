@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: node-container
-          image: divyanshpaliwal/node-app
+          image: divyanshpaliwal/node-app-demo
           ports:
             - containerPort: 8000
           resources:
