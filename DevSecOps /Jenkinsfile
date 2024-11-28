@@ -9,7 +9,7 @@ pipeline {
         
         stage("Code"){
             steps{
-                git url: "https://github.com/DIVYANSH99999/node-todo-cicd.git" , branch: "master"
+                git url: "https://github.com/DIVYANSH99999/Node-todo-apps.git" , branch: "master"
                 echo "Code Cloned Successfully"
             }
         }
@@ -35,21 +35,21 @@ pipeline {
         }
         stage("Build & Test"){
             steps{
-                sh 'docker build -t node-app:latest .'
+                sh 'docker build -t node-app-demo:latest .'
                 echo "Code Built Successfully"
             }
         }
         stage("Trivy"){
             steps{
-                sh "trivy image node-app"
+                sh "trivy image node-app-demo"
             }
         }
         stage("Push to Private Docker Hub Repo"){
             steps{
-                withCredentials([usernamePassword(credentialsId:"DockerHubCreds",passwordVariable:"dockerPass",usernameVariable:"dockerUser")]){
-                sh "docker login -u ${env.dockerUser} -p ${env.dockerPass}"
-                sh "docker tag node-app-batch-6:latest ${env.dockerUser}/node-app:latest"
-                sh "docker push ${env.dockerUser}/node-app:latest"
+                withCredentials([usernamePassword(credentialsId:"DockerHubCred",passwordVariable:"DockerHubPass",usernameVariable:"DockerHubUser")]){
+                sh "docker login -u ${env.DockerHubUser} -p ${env.DockerHubPass}"
+                sh "docker tag node-app-demo:latest ${env.DockerHubUser}/node-app-demo:latest"
+                sh "docker push ${env.DockerHubUser}/node-app-demo:latest"
                 }
                 
             }
